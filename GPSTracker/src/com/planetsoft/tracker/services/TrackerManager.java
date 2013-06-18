@@ -58,7 +58,7 @@ public class TrackerManager {
 					mTrackerListener.onTrackingStatus(msg.arg1 != 0);
 				break;
 
-			case Tracker.MSG_TRACKs_LIST_RETRIEVE:
+			case Tracker.MSG_TRACKS_LIST_RETRIEVED :
 				ArrayList<Track> trackslist = msg.getData()
 						.getParcelableArrayList("trackslist");
 				if (mTrackerListener != null)
@@ -133,6 +133,14 @@ public class TrackerManager {
 	public boolean requestStopTracking(String tracName){
 		
 		Message msg =Message.obtain(null,Tracker.RQ_STOP_TRACKING);
-		msg.getData().putS
+		msg.getData().putString("name",tracName);
+		return sendMessage(msg);
+	}
+	
+	public boolean requestTrackList(){
+		Message msg =Message.obtain(null,Tracker.RQ_RETRIEVE_TRACKs_LIST);
+		return sendMessage(msg);
+		
+		
 	}
 }
